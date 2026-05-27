@@ -14,7 +14,7 @@ function JobCard({ job, handleDelete }) {
       </p>
 
       <p>
-        <strong>Job Type:</strong> {job.jobType}
+        <strong>Job  Type:</strong> {job.jobType}
       </p>
 
       <div className="d-flex gap-2">

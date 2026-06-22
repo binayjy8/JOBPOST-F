@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 import API from "../services/api";
 import JobCard from "../components/JobCard";
@@ -10,10 +11,11 @@ function Home() {
   const fetchJobs = async () => {
     try {
       const response = await API.get("/jobs");
-
       setJobs(response.data);
     } catch (error) {
-      console.log(error);
+      toast.error(
+        error.response?.data?.message || "Failed to fetch jobs"
+      );
     }
   };
 
@@ -25,15 +27,25 @@ function Home() {
     try {
       await API.delete(`/jobs/${id}`);
 
+      toast.success("Job deleted successfully");
+
       fetchJobs();
     } catch (error) {
-      console.log(error.response?.data);
+      toast.error(
+        error.response?.data?.message || "Failed to delete job"
+      );
     }
   };
 
   const filteredJobs = jobs.filter((job) =>
     job.title.toLowerCase().includes(search.toLowerCase())
   );
+
+  useEffect(() => {
+    if (search && filteredJobs.length === 0) {
+      toast.info("No matching jobs found");
+    }
+  }, [search, filteredJobs.length]);
 
   return (
     <div className="container mt-4">
@@ -46,17 +58,23 @@ function Home() {
       />
 
       <div className="row">
-        {filteredJobs.map((job) => (
-          <div
-            className="col-md-4 mb-4"
-            key={job._id}
-          >
-            <JobCard
-              job={job}
-              handleDelete={handleDelete}
-            />
-          </div>
-        ))}
+        {filteredJobs.length > 0 ? (
+          filteredJobs.map((job) => (
+            <div
+              className="col-md-4 mb-4"
+              key={job._id}
+            >
+              <JobCard
+                job={job}
+                handleDelete={handleDelete}
+              />
+            </div>
+          ))
+        ) : (
+          <h4 className="text-center">
+            No jobs available
+          </h4>
+        )}
       </div>
     </div>
   );

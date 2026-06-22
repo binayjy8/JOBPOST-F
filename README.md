@@ -1,16 +1,186 @@
-# React + Vite
+# Job Portal Backend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Overview
 
-Currently, two official plugins are available:
+This is the backend API for the **Job Portal Application**.
+It provides REST APIs to manage job postings including creating, viewing, and deleting jobs. The backend is built using Node.js, Express, and MongoDB.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* Create a new job post
+* Fetch all available jobs
+* Fetch single job details by ID
+* Delete a job post
+* Duplicate job validation
+* Input validation for job creation
+* Error handling for invalid requests
+* MongoDB database integration
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Tech Stack
+
+* Node.js
+* Express.js
+* MongoDB
+* Mongoose
+* CORS
+* Dotenv
+
+---
+
+## Installation Steps
+
+### 1. Clone the repository
+
+```bash
+git clone <your-backend-repo-link>
+```
+
+### 2. Navigate to project folder
+
+```bash
+cd backend
+```
+
+### 3. Install dependencies
+
+```bash
+npm install
+```
+
+### 4. Create `.env` file
+
+Add:
+
+```env
+MONGODB=your_mongodb_connection_string
+PORT=5000
+```
+
+### 5. Start server
+
+```bash
+npm run dev
+```
+
+or
+
+```bash
+node index.js
+```
+
+Server runs on:
+
+```bash
+http://localhost:5000
+```
+
+---
+
+## Environment Variables
+
+| Variable | Description               |
+| -------- | ------------------------- |
+| MONGODB  | MongoDB connection string |
+| PORT     | Backend server port       |
+
+---
+
+## API Endpoints
+
+### Get All Jobs
+
+```http
+GET /api/jobs
+```
+
+Response:
+
+```json
+[
+  {
+    "_id": "123",
+    "title": "Frontend Developer",
+    "company": "Google"
+  }
+]
+```
+
+---
+
+### Get Single Job
+
+```http
+GET /api/jobs/:id
+```
+
+---
+
+### Create Job
+
+```http
+POST /api/jobs
+```
+
+Request Body:
+
+```json
+{
+  "title": "Frontend Developer",
+  "company": "Google",
+  "location": "Bangalore",
+  "salary": 50000,
+  "jobType": "Full-time",
+  "description": "Job description",
+  "qualifications": ["React", "JavaScript"]
+}
+```
+
+---
+
+### Delete Job
+
+```http
+DELETE /api/jobs/:id
+```
+
+---
+
+## Screenshots
+
+Add backend screenshots here:
+
+* API testing screenshots
+* MongoDB collection screenshots
+* Server running screenshots
+
+Example:
+
+```md
+![Server Running](./screenshots/Screenshot%202026-06-22%20095534.png)
+```
+
+---
+
+## Live Working Link
+
+Backend Live URL:
+
+```text
+https://jobpost-b.vercel.app
+```
+
+API Base URL:
+
+```text
+https://jobpost-b.vercel.app/api/jobs
+```
+
+---
+
+## Author
+
+Developed by Binay

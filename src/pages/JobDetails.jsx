@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import API from "../services/api";
 
@@ -13,10 +13,12 @@ function JobDetails() {
     const fetchJob = async () => {
       try {
         const response = await API.get(`/jobs/${id}`);
-
         setJob(response.data);
       } catch (error) {
-        console.log(error);
+        toast.error(
+          error.response?.data?.message ||
+            "Failed to fetch job details"
+        );
       }
     };
 
@@ -55,14 +57,13 @@ function JobDetails() {
         </p>
 
         <p>
-          <strong>Description:</strong>{" "}
-          {job.description}
+          <strong>Description:</strong> {job.description}
         </p>
 
         <h4>Qualifications</h4>
 
         <ol>
-          {job.qualifications.map(
+          {job.qualifications?.map(
             (qualification, index) => (
               <li key={index}>
                 {qualification}

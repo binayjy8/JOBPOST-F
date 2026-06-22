@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 import API from "../services/api";
 
@@ -26,13 +27,12 @@ function PostJob() {
     try {
       const payload = {
         ...formData,
-        qualifications:
-          formData.qualifications.split(","),
+        qualifications: formData.qualifications.split(","),
       };
 
       await API.post("/jobs", payload);
 
-      alert("Job Posted Successfully");
+      toast.success("Job posted successfully");
 
       setFormData({
         title: "",
@@ -44,7 +44,9 @@ function PostJob() {
         qualifications: "",
       });
     } catch (error) {
-      console.log(error);
+      toast.error(
+        error.response?.data?.message || "Failed to post job"
+      );
     }
   };
 
@@ -100,25 +102,11 @@ function PostJob() {
           onChange={handleChange}
           required
         >
-          <option value="">
-            Select Job Type
-          </option>
-
-          <option>
-            Full-time (On-site)
-          </option>
-
-          <option>
-            Part-time (On-site)
-          </option>
-
-          <option>
-            Full-time (Remote)
-          </option>
-
-          <option>
-            Part-time (Remote)
-          </option>
+          <option value="">Select Job Type</option>
+          <option>Full-time (On-site)</option>
+          <option>Part-time (On-site)</option>
+          <option>Full-time (Remote)</option>
+          <option>Part-time (Remote)</option>
         </select>
 
         <textarea

@@ -27,7 +27,7 @@ function Home() {
 
       fetchJobs();
     } catch (error) {
-      console.log(error);
+      console.log(error.response?.data);
     }
   };
 

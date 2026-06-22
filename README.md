@@ -183,4 +183,4 @@ https://jobpost-b.vercel.app/api/jobs
 
 ## Author
 
-Developed by Binay
+Developed by Binay Bhusan Mohanta
